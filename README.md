@@ -10,6 +10,7 @@ This project was written on `Golang`
 - `os` - suuport package for `buffio`
 - `regexp` to check format of CC number
 - `strings` to cut all spaces from string to use Lyhn alg.
+- `io/ioutil` to read data (CCN) from .txt file
 
 ## Luhn Algorithm
 1. The digits of the sequence to be checked are numbered from right to left.
