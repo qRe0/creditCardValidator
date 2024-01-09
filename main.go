@@ -69,12 +69,11 @@ func multipleCCN(fileName string) []bool {
 // Function to print the validity list
 func printValidityList(list []bool) {
 	for i, isValid := range list {
-		f.Printf("%d. %s\n", i+1, func() string {
-			if isValid {
-				return "Valid"
-			}
-			return "NOT Valid"
-		}())
+		if isValid {
+			f.Println(i+1, "Valid")
+		} else {
+			f.Println(i+1, "NOT Valid")
+		}
 	}
 }
 
@@ -82,10 +81,8 @@ func main() {
 	f.Println("This program will validate your credit card number")
 	f.Println("Loading...")
 
-	// region Maybe unused
 	var fileName string
 	var validity []bool
-	// endregion
 
 	option := -1
 	for option != 0 {
