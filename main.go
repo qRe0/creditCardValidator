@@ -1,19 +1,19 @@
 package main
 
 import (
-	b "bufio"
-	f "fmt"
+	"bufio"
+	"fmt"
 	"os"
-	r "regexp"
-	s "strings"
+	"regexp"
+	"strings"
 )
 
 // Function to validate credit card number bases on the pattern
 func isCreditCardValid(ccn string) bool {
 	// Remove \n from the end of the string
-	ccn = s.TrimSpace(ccn)
+	ccn = strings.TrimSpace(ccn)
 	// Regex pattern to validate credit card number (16 digits or 4 groups of 4 digits separated by space)
-	pattern := r.MustCompile(`^(\d{16})$|^(\d{4}\s\d{4}\s\d{4}\s\d{4})$`)
+	pattern := regexp.MustCompile(`^(\d{16})$|^(\d{4}\s\d{4}\s\d{4}\s\d{4})$`)
 
 	// Rerun true if the credit card number matches the pattern, else return false
 	return pattern.MatchString(ccn)
@@ -21,13 +21,13 @@ func isCreditCardValid(ccn string) bool {
 
 // Function to validate credit card number using Luhn algorithm
 func luhnAlgorithm(ccn string) bool {
-	ccn = s.TrimSpace(ccn)
+	ccn = strings.TrimSpace(ccn)
 
 	sum := 0
 	alternate := false
 
 	// Remove all spaces in the credit card number and reverse it to use Luhn algorithm
-	ccn = s.ReplaceAll(ccn, " ", "")
+	ccn = strings.ReplaceAll(ccn, " ", "")
 	runes := []rune(ccn)
 	for i := len(runes) - 1; i >= 0; i-- {
 		n := int(runes[i] - '0')
@@ -48,11 +48,11 @@ func luhnAlgorithm(ccn string) bool {
 func multipleCCN(fileName string) []bool {
 	content, err := os.ReadFile(fileName)
 	if err != nil {
-		f.Println("Unable to open file", fileName)
+		fmt.Println("Unable to open file", fileName)
 		return nil
 	}
 
-	lines := s.Split(string(content), "\n")
+	lines := strings.Split(string(content), "\n")
 	validity := make([]bool, 0)
 
 	for _, ccn := range lines {
@@ -70,75 +70,71 @@ func multipleCCN(fileName string) []bool {
 func printValidityList(list []bool) {
 	for i, isValid := range list {
 		if isValid {
-			f.Println(i+1, "is valid")
+			fmt.Println(i+1, "is valid")
 		} else {
-			f.Println(i+1, "is NOT valid")
+			fmt.Println(i+1, "is NOT valid")
 		}
 	}
 }
 
 func main() {
-	f.Println("This program will validate your credit card number")
-	f.Println("Loading...")
+	fmt.Println("This program will validate your credit card number")
+	fmt.Println("Loading...")
 
 	var fileName string
 	var validity []bool
 
 	option := -1
 	for option != 0 {
-		f.Println("Options:")
-		f.Println("1. Check if the credit card number is valid using Luhn algorithm")
-		f.Println("2. Check validity of CCN list (from file)")
-		f.Println("0. Exit")
+		fmt.Println("Options:")
+		fmt.Println("1. Check if the credit card number is valid using Luhn algorithm")
+		fmt.Println("2. Check validity of CCN list (from file)")
+		fmt.Println("0. Exit")
 
-		f.Print("Please, choose an option: ")
-		f.Scanln(&option)
+		fmt.Print("Please, choose an option: ")
+		fmt.Scanln(&option)
 
 		switch option {
 		case 1:
-			f.Print("Please enter your Credit Card number: ")
-			reader := b.NewReader(os.Stdin)
+			fmt.Print("Please enter your Credit Card number: ")
+			reader := bufio.NewReader(os.Stdin)
 			ccn, _ := reader.ReadString('\n')
 
 			if !isCreditCardValid(ccn) {
-				f.Println("------------------------------------")
-				f.Println("Your credit card number is NOT valid (wrong format)")
-				f.Println("------------------------------------")
-				f.Println()
-				return
+				fmt.Println("------------------------------------")
+				fmt.Println("Your credit card number is NOT valid (wrong format)")
+				fmt.Println("------------------------------------")
+				fmt.Println()
 			}
 
 			if luhnAlgorithm(ccn) {
-				f.Println("-------------------------------------------------")
-				f.Println("Your credit card number is valid (Luhn algorithm)")
-				f.Println("-------------------------------------------------")
+				fmt.Println("-------------------------------------------------")
+				fmt.Println("Your credit card number is valid (Luhn algorithm)")
+				fmt.Println("-------------------------------------------------")
 			} else {
-				f.Println("------------------------------------")
-				f.Println("Your credit card number is NOT valid")
-				f.Println("------------------------------------")
+				fmt.Println("------------------------------------")
+				fmt.Println("Your credit card number is NOT valid")
+				fmt.Println("------------------------------------")
 			}
-			f.Println()
-			break
+			fmt.Println()
 		case 2:
-			f.Print("Please enter the file name: ")
-			f.Scanln(&fileName)
+			fmt.Print("Please enter the file name: ")
+			fmt.Scanln(&fileName)
 
 			validity = multipleCCN(fileName)
-			f.Println("------------------------------------")
-			f.Println("CCN validity (Luhn algorithm):")
+			fmt.Println("------------------------------------")
+			fmt.Println("CCN validity (Luhn algorithm):")
 			printValidityList(validity)
-			f.Println()
-			break
+			fmt.Println()
 		case 0:
-			f.Println("--------")
-			f.Println("Goodbye!")
-			f.Println("--------")
+			fmt.Println("--------")
+			fmt.Println("Goodbye!")
+			fmt.Println("--------")
 		default:
-			f.Println("--------------")
-			f.Println("Unknown option")
-			f.Println("--------------")
-			f.Println()
-			break
+			fmt.Println("--------------")
+			fmt.Println("Unknown option")
+			fmt.Println("--------------")
+			fmt.Println()
 		}
 	}
 }
