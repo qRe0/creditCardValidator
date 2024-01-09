@@ -80,6 +80,7 @@ func printValidityList(list []bool) {
 
 func main() {
 	f.Println("This program will validate your credit card number")
+	f.Println("Loading...")
 
 	// region Maybe unused
 	var fileName string
