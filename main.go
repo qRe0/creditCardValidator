@@ -3,7 +3,6 @@ package main
 import (
 	b "bufio"
 	f "fmt"
-	io "io/ioutil"
 	"os"
 	r "regexp"
 	s "strings"
@@ -47,7 +46,7 @@ func luhnAlgorithm(ccn string) bool {
 
 // Function to test the program with multiple valid credit card numbers from file
 func multipleCCN(fileName string) []bool {
-	content, err := io.ReadFile(fileName)
+	content, err := os.ReadFile(fileName)
 	if err != nil {
 		f.Println("Unable to open file", fileName)
 		return nil
