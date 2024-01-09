@@ -70,9 +70,9 @@ func multipleCCN(fileName string) []bool {
 func printValidityList(list []bool) {
 	for i, isValid := range list {
 		if isValid {
-			f.Println(i+1, "Valid")
+			f.Println(i+1, "is valid")
 		} else {
-			f.Println(i+1, "NOT Valid")
+			f.Println(i+1, "is NOT valid")
 		}
 	}
 }
