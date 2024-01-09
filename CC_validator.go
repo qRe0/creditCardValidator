@@ -45,7 +45,7 @@ func luhnAlgorithm(ccn string) bool {
 }
 
 // Function to test the program with multiple valid credit card numbers from file
-func multipleCCN(fileName string) []bool {
+func readCCNFromFile(fileName string) []bool {
 	content, err := os.ReadFile(fileName)
 	if err != nil {
 		fmt.Println("Unable to open file", fileName)
@@ -121,7 +121,7 @@ func main() {
 			fmt.Print("Please enter the file name: ")
 			fmt.Scanln(&fileName)
 
-			validity = multipleCCN(fileName)
+			validity = readCCNFromFile(fileName)
 			fmt.Println("------------------------------------")
 			fmt.Println("CCN validity (Luhn algorithm):")
 			printValidityList(validity)
