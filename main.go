@@ -41,10 +41,11 @@ func luhnAlgorithm(ccn string) bool {
 		sum += n
 		alternate = !alternate
 	}
-	ans := sum % 10 == 0
+	ans := sum%10 == 0
 	return ans
 }
 
+// Function to test the program with multiple valid credit card numbers from file
 func multipleCCN(fileName string) []bool {
 	content, err := io.ReadFile(fileName)
 	if err != nil {
@@ -66,7 +67,7 @@ func multipleCCN(fileName string) []bool {
 	return validity
 }
 
-// Функция для печати списка валидности номеров кредитных карт
+// Function to print the validity list
 func printValidityList(list []bool) {
 	for i, isValid := range list {
 		f.Printf("%d. %s\n", i+1, func() string {
