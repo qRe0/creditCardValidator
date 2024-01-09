@@ -41,7 +41,7 @@ func luhnAlgorithm(ccn string) bool {
 		sum += n
 		alternate = !alternate
 	}
-	ans := sum%10 == 0
+	ans := sum % 10 == 0
 	return ans
 }
 
