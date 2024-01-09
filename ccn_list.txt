@@ -1,1 +1,3 @@
-
+Here you can enter CCN in format:
+- dddd dddd dddd dddd
+- dddddddddddddddd
