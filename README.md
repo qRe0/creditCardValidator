@@ -7,10 +7,9 @@ This project was written on `Golang`
 ## Used packages:
 - `buffio` to read input data
 - `fmt` - standar console dialog package
-- `os` - suuport package for `buffio`
+- `os` to read data from .txt file
 - `regexp` to check format of CC number
 - `strings` to cut all spaces from string to use Lyhn alg.
-- `io/ioutil` to read data (CCN) from .txt file
 
 ## Luhn Algorithm
 1. The digits of the sequence to be checked are numbered from right to left.
@@ -20,4 +19,4 @@ This project was written on `Golang`
 5. All the digits obtained as a result of the conversion are added together. If the sum is a multiple of 10, the original data are correct.
 
 ## Future of the project
-The project will soon be migrated from console to web application. The project will also be linked to a database (`Postgres`).
+The project will soon be migrated from console application to a microservice. The project will use `HTTP-requests` and `cURL` to check validity of CC.
