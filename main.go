@@ -46,7 +46,7 @@ func main() {
 	reader := b.NewReader(os.Stdin)
 	ccn, _ := reader.ReadString('\n')
 
-	// Удаляем символ новой строки, так как ReadString() включает его в результат
+	// Removing symbol '\n' from the end of the string
 	ccn = s.TrimSpace(ccn)
 
 	if !isCreditCardValid(ccn) {
