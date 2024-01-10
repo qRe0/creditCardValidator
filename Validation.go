@@ -60,9 +60,7 @@ func readCCNFromFile(fileName string) map[string]map[string]bool {
 		ccn := scanner.Text()
 		if isCreditCardValid(ccn) {
 
-			// region Data structure
-
-			//{
+			//{ Data structure
 			//	"ccn": {
 			//	"check option": value (true or false)
 			//  },
@@ -70,8 +68,6 @@ func readCCNFromFile(fileName string) map[string]map[string]bool {
 			//	"luhn": true
 			//  }
 			//}
-
-			// endregion
 
 			// Store the validity of the credit card number based on Luhn algorithm
 			// If the credit card number is valid by luhn algorithm, we have ccn as key, "luhn" as key and true as value
