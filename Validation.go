@@ -54,13 +54,14 @@ func readCCNFromFile(fileName string) map[string]map[string]bool {
 	defer file.Close()
 
 	scanner := bufio.NewScanner(file)
-	validity := make(map[string]map[string]bool)
+	validityList := make(map[string]map[string]bool)
 
 	for scanner.Scan() {
 		ccn := scanner.Text()
 		if isCreditCardValid(ccn) {
 
-			//{ Data structure
+			// Data structure
+			//{
 			//	"ccn": {
 			//	"check option": value (true or false)
 			//  },
@@ -71,13 +72,13 @@ func readCCNFromFile(fileName string) map[string]map[string]bool {
 
 			// Store the validity of the credit card number based on Luhn algorithm
 			// If the credit card number is valid by luhn algorithm, we have ccn as key, "luhn" as key and true as value
-			validity[ccn] = make(map[string]bool)
-			validity[ccn]["Luhn"] = luhnAlgorithm(ccn)
+			validityList[ccn] = make(map[string]bool)
+			validityList[ccn]["Luhn"] = luhnAlgorithm(ccn)
 		} else {
 			// Store the validity of the credit card number based on card format
 			// If the credit card number is valid by card format, we have ccn as key, "card format" as key and true as value
-			validity[ccn] = make(map[string]bool)
-			validity[ccn]["Card format"] = false
+			validityList[ccn] = make(map[string]bool)
+			validityList[ccn]["Card format"] = false
 		}
 	}
 
@@ -86,7 +87,7 @@ func readCCNFromFile(fileName string) map[string]map[string]bool {
 		return nil
 	}
 
-	return validity
+	return validityList
 }
 
 // Function to print the validity list
