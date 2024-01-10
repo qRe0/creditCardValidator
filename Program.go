@@ -37,6 +37,7 @@ func main() {
 				fmt.Println("Your credit card number is NOT valid (wrong format)")
 				fmt.Println("------------------------------------")
 				fmt.Println()
+				break
 			}
 
 			if luhnAlgorithm(ccn) {
@@ -45,7 +46,7 @@ func main() {
 				fmt.Println("-------------------------------------------------")
 			} else {
 				fmt.Println("------------------------------------")
-				fmt.Println("Your credit card number is NOT valid")
+				fmt.Println("Your credit card number is NOT valid (Luhn algorithm)")
 				fmt.Println("------------------------------------")
 			}
 			fmt.Println()
