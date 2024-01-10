@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
 	"os"
 	"regexp"
@@ -44,34 +45,81 @@ func luhnAlgorithm(ccn string) bool {
 }
 
 // Function to test the program with multiple valid credit card numbers from file
-func readCCNFromFile(fileName string) []bool {
-	content, err := os.ReadFile(fileName)
+func readCCNFromFile(fileName string) map[string]map[string]bool {
+	file, err := os.Open(fileName)
 	if err != nil {
 		fmt.Println("Unable to open file", fileName)
 		return nil
 	}
+	defer file.Close()
 
-	lines := strings.Split(string(content), "\n")
-	validity := make([]bool, 0)
+	scanner := bufio.NewScanner(file)
+	validity := make(map[string]map[string]bool)
 
-	for _, ccn := range lines {
+	for scanner.Scan() {
+		ccn := scanner.Text()
 		if isCreditCardValid(ccn) {
-			validity = append(validity, luhnAlgorithm(ccn))
+
+			// region Data structure
+
+			//{
+			//	"ccn": {
+			//	"check option": value (true or false)
+			//  },
+			//	"4003 0241 0084 7010": {
+			//	"luhn": true
+			//  }
+			//}
+
+			// endregion
+
+			// Store the validity of the credit card number based on Luhn algorithm
+			// If the credit card number is valid by luhn algorithm, we have ccn as key, "luhn" as key and true as value
+			validity[ccn] = make(map[string]bool)
+			validity[ccn]["Luhn"] = luhnAlgorithm(ccn)
 		} else {
-			validity = append(validity, false)
+			// Store the validity of the credit card number based on card format
+			// If the credit card number is valid by card format, we have ccn as key, "card format" as key and true as value
+			validity[ccn] = make(map[string]bool)
+			validity[ccn]["Card format"] = false
 		}
+	}
+
+	if err := scanner.Err(); err != nil {
+		fmt.Println("Error reading file:", err)
+		return nil
 	}
 
 	return validity
 }
 
 // Function to print the validity list
-func printValidityList(list []bool) {
-	for i, isValid := range list {
-		if isValid {
-			fmt.Println(i+1, "is valid")
-		} else {
-			fmt.Println(i+1, "is NOT valid")
+func printValidityList(list map[string]map[string]bool) {
+	totalCards := 0
+	validCards := 0
+	invalidCards := 0
+
+	for ccn, validity := range list {
+		totalCards++
+
+		fmt.Printf("Credit Card Number: %s\n", ccn)
+		for check, result := range validity {
+			var isValid string
+			if result {
+				isValid = "is valid"
+				validCards++
+			} else {
+				isValid = "is NOT valid"
+				invalidCards++
+			}
+			// Where check is "luhn" or "card format", isValid is "is valid" or "is NOT valid"
+			fmt.Printf("- %s check: %s\n", check, isValid)
 		}
+		fmt.Println()
 	}
+
+	// P.S. %d\n means print the number as decimal and go to the next line
+	fmt.Printf("Total Cards: %d\n", totalCards)
+	fmt.Printf("Valid Cards: %d\n", validCards)
+	fmt.Printf("Invalid Cards: %d\n", invalidCards)
 }
