@@ -11,7 +11,7 @@ func main() {
 	fmt.Println("This program will validate your credit card number")
 	fmt.Println("Loading...")
 
-	time.Sleep(1500 * time.Millisecond)
+	time.Sleep(1000 * time.Millisecond)
 
 	var fileName string
 	var validity map[string]map[string]bool
@@ -29,8 +29,7 @@ func main() {
 		switch option {
 		case 1:
 			fmt.Print("Please enter your Credit Card number: ")
-			reader := bufio.NewReader(os.Stdin)
-			ccn, _ := reader.ReadString('\n')
+			ccn, _ := bufio.NewReader(os.Stdin).ReadString('\n')
 
 			if !isCreditCardValid(ccn) {
 				fmt.Println("------------------------------------")

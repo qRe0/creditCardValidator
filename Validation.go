@@ -115,10 +115,6 @@ func printValidityList(list map[string]map[string]bool) {
 		fmt.Println()
 	}
 
-	// P.S. %d\n means print the number as decimal and go to the next line
-	// fmt.Printf("Total Cards: %d\n", totalCards)
-	// fmt.Printf("Valid Cards: %d\n", validCards)
-	// fmt.Printf("Invalid Cards: %d\n", invalidCards)
 	fmt.Println("Total Cards:", totalCards)
 	fmt.Println("Valid Cards:", validCards)
 	fmt.Println("Invalid Cards:", invalidCards)
