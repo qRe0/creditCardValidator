@@ -4,14 +4,11 @@ import (
 	"bufio"
 	"fmt"
 	"os"
-	"time"
 )
 
 func main() {
 	fmt.Println("This program will validate your credit card number")
 	fmt.Println("Loading...")
-
-	time.Sleep(1000 * time.Millisecond)
 
 	var fileName string
 	var validity map[string]map[string]bool
